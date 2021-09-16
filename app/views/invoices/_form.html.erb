@@ -1,0 +1,63 @@
+<%= form_with(model: invoice) do |form| %>
+  <% if invoice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+
+      <ul>
+        <% invoice.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, Invoice.statuses.keys.to_a %>
+  </div>
+
+  <div class="field">
+    <%= form.label :payment_date %>
+    <%= form.date_field :payment_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :payment_term_id %>
+    <%= form.collection_select(:payment_term_id, PaymentTerm.all, :id, :name, {prompt: true}) %>
+  </div>
+
+  <h3>Sender Address</h3>
+  <%= form.fields_for :sender_address do |addr| %>
+    <%= render partial: 'addresses/form', locals:{ form: addr } %>
+  <% end %>
+
+  <h3>Client Details</h3>
+  <div class="field">
+    <%= form.label :client_name %>
+    <%= form.text_field :client_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :client_email %>
+    <%= form.email_field :client_email %>
+  </div>
+
+  <h3>Client Address</h3>
+  <%= form.fields_for :client_address do |addr| %>
+    <%= render partial: 'addresses/form', locals:{ form: addr } %>
+  <% end %>
+
+  <h3>Line Items</h3>
+  <%= form.fields_for :line_items do |li| %>
+    <%= render partial: 'line_items/form_fields', locals:{ form: li } %>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

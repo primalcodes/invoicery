@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @payment_term.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @payment_term.description %>
+</p>
+
+<%= link_to 'Edit', edit_payment_term_path(@payment_term) %> |
+<%= link_to 'Back', payment_terms_path %>

@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  invoice: one
+  type: 
+  street: MyString
+  city: MyString
+  state: MyString
+  post_code: MyString
+  country: MyString
+
+two:
+  invoice: two
+  type: 
+  street: MyString
+  city: MyString
+  state: MyString
+  post_code: MyString
+  country: MyString

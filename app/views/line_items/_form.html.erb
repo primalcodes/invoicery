@@ -1,0 +1,19 @@
+<%= form_with(model: line_item) do |form| %>
+  <% if line_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(line_item.errors.count, "error") %> prohibited this line_item from being saved:</h2>
+
+      <ul>
+        <% line_item.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= render partial 'form_fields', locals: {form: form} %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

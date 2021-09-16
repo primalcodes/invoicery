@@ -1,0 +1,1 @@
+class SenderAddress < Address; end

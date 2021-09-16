@@ -1,0 +1,1 @@
+class ClientAddress < Address; end
