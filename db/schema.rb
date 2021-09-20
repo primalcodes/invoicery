@@ -12,11 +12,8 @@
 
 ActiveRecord::Schema.define(version: 2021_09_15_234707) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "addresses", force: :cascade do |t|
-    t.bigint "invoice_id", null: false
+    t.integer "invoice_id", null: false
     t.string "type", null: false
     t.string "street"
     t.string "city"
@@ -32,7 +29,7 @@ ActiveRecord::Schema.define(version: 2021_09_15_234707) do
   create_table "invoices", force: :cascade do |t|
     t.date "payment_date"
     t.string "description"
-    t.bigint "payment_term_id", null: false
+    t.integer "payment_term_id", null: false
     t.string "client_name"
     t.string "client_email"
     t.integer "status", default: 0, null: false
@@ -42,7 +39,7 @@ ActiveRecord::Schema.define(version: 2021_09_15_234707) do
   end
 
   create_table "line_items", force: :cascade do |t|
-    t.bigint "invoice_id", null: false
+    t.integer "invoice_id", null: false
     t.string "name"
     t.integer "quantity", default: 0, null: false
     t.integer "price", default: 0, null: false
