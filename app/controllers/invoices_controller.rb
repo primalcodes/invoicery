@@ -78,6 +78,12 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.find(params[:id])
   end
 
+  # TODO: Mike... make this less shitty
+  # Also commented on the show.html.erb file
+  def set_invoice_paid
+    @invoice.status == 'paid'
+  end
+
   # Only allow a list of trusted parameters through.
   def invoice_params
     params[:invoice][:status] = params[:invoice][:status].to_i
