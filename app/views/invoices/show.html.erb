@@ -1,3 +1,29 @@
+<div class="space-y-6 mx-auto w-full max-w-3xl ">
+
+<div class="pt-12 flex items-center justify-between">
+  <%= link_to 'Back', invoices_path %>
+  <% unless htmx_request? %>
+<div>
+    <%= link_to 'Edit', edit_invoice_path(@invoice), {
+            'hx-get': edit_invoice_path(@invoice),
+            'hx-target': '#form-box',
+            'hx-swap': 'innerHTML',
+            class: "toggle-side-pane"
+          } %> |
+  <%= link_to 'Delete', @invoice, 
+    { 
+      method: :delete,
+      'hx-confirm': 'Are you sure?',
+      'hx-delete': invoice_path(@invoice),                  
+      'hx-swap': 'outerHTML',
+      'hx-target': "#invoice-#{ @invoice.id }"
+    }
+  %>
+  
+</div>
+<% end %>
+</div>
+<div class="bg-white p-12 rounded-xl shadow space-y-6">
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -34,8 +60,27 @@
   <strong>Status:</strong>
   <%= @invoice.status %>
 </p>
+</div>
+</div>
 
-<% unless htmx_request? %>
-  <%= link_to 'Edit', edit_invoice_path(@invoice) %> |
-  <%= link_to 'Back', invoices_path %>
-<% end %>
+<div class="side-pane fixed flex inset-0 transition-colors transform -translate-x-full w-full bg-black bg-opacity-25 duration-150">
+  <div class="side-pane-content bg-white h-full w-full max-w-5xl shadow-lg space-y-12 p-12 shadow-lg transform -translate-x-full duration-300 overflow-y-scroll rounded-tr-2xl rounded-br-2xl">
+    <div id="form-box"></div>
+    <button class="toggle-side-pane">Close</button>
+  </div>
+</div>
+<script>
+htmx.onLoad(function (content) {
+  const togglePaneButton = content.querySelectorAll('.toggle-side-pane')
+  const sidePane = content.querySelector('.side-pane')
+  const sidePaneContent = content.querySelector('.side-pane-content')
+  togglePaneButton.forEach((button) => {
+    button.addEventListener('click', () => {
+      sidePane.classList.toggle('-translate-x-full')
+      sidePane.classList.toggle('translate-x-0')
+      sidePaneContent.classList.toggle('-translate-x-full')
+      sidePaneContent.classList.toggle('translate-x-0')
+    })
+  })
+})
+</script>

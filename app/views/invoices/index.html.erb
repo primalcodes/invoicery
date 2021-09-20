@@ -24,24 +24,7 @@
         <span class="capitalize font-bold"><%= invoice.status %></span>
       </div>
       <div>
-        <%= link_to 'Show', invoice,
-          {
-            'hx-get': invoice_path(invoice),
-            'hx-target': '#form-box',
-            'hx-swap': 'innerHTML',
-            class: "toggle-side-pane"
-          }
-        %>
-      </div>
-      <div>
-        <%= link_to 'Edit', edit_invoice_path(invoice), 
-          {
-            'hx-get': edit_invoice_path(invoice),
-            'hx-target': '#form-box',
-            'hx-swap': 'innerHTML',
-            class: "toggle-side-pane"
-          }
-        %>
+        <%= link_to 'Show', invoice %>
       </div>
       <div>
         <%= link_to 'Destroy', invoice, 
@@ -78,6 +61,4 @@ htmx.onLoad(function (content) {
     })
   })
 })
-
-
 </script>
