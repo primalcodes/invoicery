@@ -5,18 +5,20 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%#= javascript_include_tag 'application' %>
-        <script src="https://unpkg.com/htmx.org@1.5.0"></script>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <%= javascript_include_tag 'application' %>
+    <script src="https://unpkg.com/htmx.org@1.5.0"></script>
   </head>
 
-  <body>
+  <body class="bg-gray-100 min-h-screen flex flex-col">
+    <div>
+      <%= yield %>
+    </div>
     <script>
       document.body.addEventListener('htmx:configRequest', (event) => {
         event.detail.headers['X-CSRF-Token'] = '<%= form_authenticity_token %>';
       })
     </script>
-    <%= yield %>
   </body>
 </html>

@@ -1,72 +1,83 @@
-<p id="notice"><%= notice %></p>
+<div class="max-w-3xl mx-auto p-4 space-y-12">
+  <p id="notice"><%= notice %></p>
 
-<h1>Invoices</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Payment date</th>
-      <th>Description</th>
-      <th>Payment term</th>
-      <th>Client name</th>
-      <th>Client email</th>
-      <th>Status</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody hx-push-url="true">
+  <div class="flex items-center justify-between mb-4">
+    <h1>Invoices</h1>
+    <%= link_to 'New Invoice', new_invoice_path,
+    {
+      'hx-get': new_invoice_path,
+      'hx-target': '#form-box',
+      'hx-swap': 'innerHTML',
+      class: "toggle-side-pane"
+    }
+  %>
+  </div>
+  <ul hx-push-url="true" class="space-y-4">
     <% @invoices.each do |invoice| %>
-      <tr id='invoice-<%= invoice.id %>'>
-        <td><%= invoice.payment_date %></td>
-        <td><%= invoice.description %></td>
-        <td><%= invoice.payment_term.name %></td>
-        <td><%= invoice.client_name %></td>
-        <td><%= invoice.client_email %></td>
-        <td><%= invoice.status %></td>
-        <td><%= number_to_currency(invoice.total) %></td>
-        <td>
-          <%= link_to 'Show', invoice,
-            {
-              'hx-get': invoice_path(invoice),
-              'hx-target': '#form-box',
-              'hx-swap': 'innerHTML'
-            }
-          %>
-        </td>
-        <td>
-          <%= link_to 'Edit', edit_invoice_path(invoice), 
-            {
-              'hx-get': edit_invoice_path(invoice),
-              'hx-target': '#form-box',
-              'hx-swap': 'innerHTML'
-            } 
-          %>
-        </td>
-        <td><%= link_to 'Destroy', invoice, 
-                { 
-                  method: :delete,
-                  'hx-confirm': 'Are you sure?',
-                  'hx-delete': invoice_path(invoice),                  
-                  'hx-swap': 'outerHTML',
-                  'hx-target': "#invoice-#{ invoice.id }"
-                }
-            %>
-        </td>
-      </tr>
+    <li id='invoice-<%= invoice.id %>' class="bg-white rounded-lg shadow-sm p-4 flex items-center space-x-4">
+      <div class="flex-shrink-0">#<%= invoice.id %></div>
+      <div><%= invoice.payment_date %></div>
+      <div><%= invoice.client_name %></div>
+      <div><%= number_to_currency(invoice.total) %></div>
+      <div class="status-<%= invoice.status %> flex items-center rounded px-3 py-2 bg-opacity-25 text-orange-500 bg-orange-500 space-x-2">
+        <span class="w-2 h-2 bg-current rounded-full"></span>
+        <span class="capitalize font-bold"><%= invoice.status %></span>
+      </div>
+      <div>
+        <%= link_to 'Show', invoice,
+          {
+            'hx-get': invoice_path(invoice),
+            'hx-target': '#form-box',
+            'hx-swap': 'innerHTML',
+            class: "toggle-side-pane"
+          }
+        %>
+      </div>
+      <div>
+        <%= link_to 'Edit', edit_invoice_path(invoice), 
+          {
+            'hx-get': edit_invoice_path(invoice),
+            'hx-target': '#form-box',
+            'hx-swap': 'innerHTML',
+            class: "toggle-side-pane"
+          }
+        %>
+      </div>
+      <div>
+        <%= link_to 'Destroy', invoice, 
+          { 
+            method: :delete,
+            'hx-confirm': 'Are you sure?',
+            'hx-delete': invoice_path(invoice),                  
+            'hx-swap': 'outerHTML',
+            'hx-target': "#invoice-#{ invoice.id }"
+          }
+        %>
+      </div>
+    </li>
     <% end %>
-  </tbody>
-</table>
+  </ul>
+</div>
+<div class="side-pane fixed flex inset-0 transition-colors transform -translate-x-full w-full bg-black bg-opacity-25 duration-150">
+  <div class="side-pane-content bg-white h-full w-full max-w-5xl shadow-lg space-y-12 p-12 shadow-lg transform -translate-x-full duration-300 overflow-y-scroll rounded-tr-2xl rounded-br-2xl">
+    <div id="form-box"></div>
+    <button class="toggle-side-pane">Close</button>
+  </div>
+</div>
+<script>
+htmx.onLoad(function (content) {
+  const togglePaneButton = content.querySelectorAll('.toggle-side-pane')
+  const sidePane = content.querySelector('.side-pane')
+  const sidePaneContent = content.querySelector('.side-pane-content')
+  togglePaneButton.forEach((button) => {
+    button.addEventListener('click', () => {
+      sidePane.classList.toggle('-translate-x-full')
+      sidePane.classList.toggle('translate-x-0')
+      sidePaneContent.classList.toggle('-translate-x-full')
+      sidePaneContent.classList.toggle('translate-x-0')
+    })
+  })
+})
 
-<br>
 
-<%= link_to 'New Invoice', new_invoice_path,
-  {
-    'hx-get': new_invoice_path,
-    'hx-target': '#form-box',
-    'hx-swap': 'innerHTML'
-  }
-%>
-
-<h3>Form Box</h3>
-<div id="form-box"></div>
+</script>
