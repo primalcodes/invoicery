@@ -1,3 +1,97 @@
 // Place all the styles related to the invoices controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+input[type='text'],
+input[type='password'],
+input[type='email'],
+input[type='number'],
+input[type='url'],
+input[type='date'],
+input[type='datetime-local'],
+input[type='month'],
+input[type='week'],
+input[type='time'],
+input[type='search'],
+input[type='tel'],
+select,
+select[multiple],
+textarea {
+  border: #ccc solid 1px;
+  width: 100%;
+  height: 3rem;
+  padding: 0 1rem !important;
+  border-radius: 6px;
+}
+
+select {
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+  -webkit-print-color-adjust: exact;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  height: 3rem;
+  padding: 0 1.5rem;
+  border-radius: 10em;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-weight: 700;
+  appearance: none;
+  transition: background-color 0.2s ease-in-out;
+  word-spacing: normal;
+}
+
+.btn-default {
+  color: #fff;
+  background-color: rgba(124, 93, 250, 1);
+}
+
+.btn-default:hover {
+  color: #fff;
+  background-color: rgba(124, 93, 250, 0.8);
+}
+
+.btn-muted {
+  color: rgba(126, 136, 195, 1);
+  background-color: rgba(248, 248, 251, 1);
+}
+
+.btn-muted:hover {
+  color: rgba(126, 136, 195, 1);
+  background-color: rgba(248, 248, 251, 0.8);
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: rgba(239, 68, 68, 1);
+}
+
+.btn-danger:hover {
+  color: #fff;
+  background-color: rgba(215, 83, 83, 0.8);
+}
+
+.status-paid {
+  color: rgb(51, 214, 159);
+  background-color: rgba(51, 214, 159, 0.075);
+}
+
+.status-pending {
+  color: rgb(255, 143, 0);
+  background-color: rgba(255, 143, 0, 0.05);
+}
+
+.status-draft {
+  color: rgb(223, 227, 250);
+  background-color: rgba(223, 227, 250, 0.075);
+}
