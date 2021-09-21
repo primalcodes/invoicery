@@ -2,7 +2,7 @@
 
   <div class="pt-12 flex items-center justify-between">
     <%= link_to 'Back', invoices_path %>
-    <%= render partial: 'invoice_actions' unless htmx_request? %>    
+    <%= render partial: 'invoices/invoice_actions' unless htmx_request? %>    
   </div>
   <div class="bg-white p-12 rounded-xl shadow space-y-6">
     <p id="notice"><%= notice %></p>
@@ -39,7 +39,7 @@
 
     <p>
       <strong>Status:</strong>
-      <%= @invoice.status %>
+      <span id="invoice-status"><%= @invoice.status %></span>
     </p>
   </div>
 </div>

@@ -1,5 +1,5 @@
 class InvoicesController < ApplicationController
-  before_action :set_invoice, only: %i[show edit update destroy]
+  before_action :set_invoice, only: %i[show edit update destroy toggle_status]
 
   # GET /invoices or /invoices.json
   def index
@@ -60,12 +60,12 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # PATCH /invoices/1/paid or /invoices/1/paid.json
-  def paid
+  # PATCH /invoices/1/toggle_status or /invoices/1/toggle_status.json
+  def toggle_status
     respond_to do |format|
-      @invoice.status = Invoice.statuses[:paid]
-      if @invoice.save
-        format.html { redirect_to @invoice, notice: 'Invoice was successfully marked as paid.' }
+      status = @invoice.pending? ? Invoice.statuses[:paid] : Invoice.statuses[:pending]
+      if @invoice.update(status: status)
+        format.html { render partial: 'invoices/invoice_actions', layout: false }
         format.json { render :show, status: :ok, location: @invoice }
       else
         format.html { render :edit, status: :unprocessable_entity }
