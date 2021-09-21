@@ -1,0 +1,34 @@
+<div id='invoice-actions' class="flex items-center justify-between bg-white p-12 rounded-lg shadow-sm">
+  <div class="flex items-center space-x-2">
+    <p>
+      <strong>Status:</strong>
+    </p>
+    <div class="status-<%= @invoice.status %> flex items-center rounded px-3 py-2 bg-opacity-25 space-x-2">
+      <span class="w-2 h-2 bg-current rounded-full"></span>
+      <span class="capitalize font-bold invoice-status"><%= @invoice.status %></span>
+    </div>
+  </div>
+  <div class="flex items-center space-x-2">
+    <%= link_to 'Edit', edit_invoice_path(@invoice), {
+    'hx-get': edit_invoice_path(@invoice),
+    'hx-target': '#form-box',
+    'hx-swap': 'innerHTML',
+    class: "toggle-side-pane btn btn-muted"
+  } %>
+    <%= link_to 'Delete', @invoice, { 
+    method: :delete,
+    'hx-confirm': 'Are you sure?',
+    'hx-delete': invoice_path(@invoice),                  
+    'hx-swap': 'outerHTML',
+    'hx-target': "#invoice-#{ @invoice.id }",
+    class: "btn btn-danger"
+  } %>
+    <%= link_to "Mark as #{@invoice.paid? ? 'Un' : ''}Paid", toggle_status_invoice_path(@invoice), {
+    method: :patch,
+    'hx-patch': toggle_status_invoice_path(@invoice),
+    'hx-target': '#invoice-actions',
+    'hx-swap': 'outerHTML',
+    class: "btn btn-default"
+  } %>
+  </div>
+</div>

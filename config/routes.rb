@@ -1,6 +1,9 @@
-Rails.application.routes.draw do    
+Rails.application.routes.draw do
   resources :payment_terms
   resources :invoices do
+    member do
+      patch '/toggle_status', to: 'invoices#toggle_status', as: 'toggle_status'
+    end
     resources :addresses
     resources :line_items
   end
