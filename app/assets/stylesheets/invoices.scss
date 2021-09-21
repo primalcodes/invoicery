@@ -17,11 +17,12 @@ input[type='tel'],
 select,
 select[multiple],
 textarea {
-  border: #ccc solid 1px;
+  border: rgba(223, 227, 250, 1) solid 1px;
   width: 100%;
   height: 3rem;
   padding: 0 1rem !important;
   border-radius: 6px;
+  font-weight: 500;
 }
 
 select {
@@ -32,9 +33,14 @@ select {
   -webkit-print-color-adjust: exact;
 }
 
-label {
+label,
+.label {
   display: block;
   margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1;
+  color: #805ad5;
 }
 
 .btn {

@@ -11,8 +11,28 @@
       </ul>
     </div>
   <% end %>
-  <div class="space-y-6">
+  <div class="space-y-12">
+    <h2 class="font-bold text-2xl">New Invoice <span class="text-red-500">UNIQUE LABEL UPDATED NEEDED</span></h2>
     <div class="space-y-6">
+      <h3 class="text-purple-600 font-bold">Bill From</h3>
+      <%= form.fields_for :sender_address do |addr| %>
+        <%= render partial: 'addresses/form', locals:{ form: addr } %>
+      <% end %>
+    </div>
+    <div class="space-y-6">
+      <h3 class="text-purple-600 font-bold">Bill To</h3>
+      <div class="field">
+        <%= form.label :client_name %>
+        <%= form.text_field :client_name %>
+      </div>
+      <div class="field">
+        <%= form.label :client_email %>
+        <%= form.email_field :client_email %>
+      </div>
+      <%= form.fields_for :client_address do |addr| %>
+        <%= render partial: 'addresses/form', locals:{ form: addr } %> <% end %>
+    </div>
+    <div class="grid lg:grid-cols-3 gap-6">
       <div class="field">
         <%= form.label :status %>
         <%= form.select :status, Invoice.statuses %>
@@ -22,34 +42,16 @@
         <%= form.date_field :payment_date %>
       </div>
       <div class="field">
-        <%= form.label :description %>
-        <%= form.text_field :description %>
-      </div>
-      <div class="field">
         <%= form.label :payment_term_id %>
         <%= form.collection_select(:payment_term_id, PaymentTerm.all, :id, :name, {prompt: true}) %>
       </div>
-      <div class="space-y-6">
-        <h3 class="font-bold">Sender Address</h3>
-        <%= form.fields_for :sender_address do |addr| %>
-          <%= render partial: 'addresses/form', locals:{ form: addr } %>
-        <% end %>
+      <div class="field lg:col-span-3">
+        <%= form.label :description %>
+        <%= form.text_field :description %>
       </div>
     </div>
     <div class="space-y-6">
-      <h3 class="font-bold">Client Details</h3>
-      <div class="field">
-        <%= form.label :client_name %>
-        <%= form.text_field :client_name %>
-      </div>
-      <div class="field">
-        <%= form.label :client_email %>
-        <%= form.email_field :client_email %>
-      </div>
-      <h3 class="font-bold">Client Address</h3>
-      <%= form.fields_for :client_address do |addr| %>
-        <%= render partial: 'addresses/form', locals:{ form: addr } %> <% end %>
-      <h3 class="font-bold">Line Items</h3>
+      <h3 class="font-bold text-lg">Line Items</h3>
       <%= form.fields_for :line_items do |li| %>
         <%= render partial: 'line_items/form_fields', locals:{ form: li } %> <% end %>
       <div class="actions"><%= form.submit :class => 'btn btn-default cursor-pointer' %></div>
