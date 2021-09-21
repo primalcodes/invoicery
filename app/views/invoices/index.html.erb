@@ -7,7 +7,7 @@
       'hx-get': new_invoice_path,
       'hx-target': '#form-box',
       'hx-swap': 'innerHTML',
-      class: "toggle-side-pane"
+      onclick: 'toggleContainer()',
     }
   %>
   </div>
@@ -43,22 +43,7 @@
 <div class="side-pane fixed flex inset-0 transition-colors transform -translate-x-full w-screen">
   <div class="side-pane-content bg-white h-full w-full max-w-5xl shadow-lg space-y-12 p-12 shadow-lg transform -translate-x-full duration-300 overflow-y-scroll rounded-tr-2xl rounded-br-2xl z-10">
     <div id="form-box"></div>
-    <button class="toggle-side-pane">Close</button>
+    <button onclick="toggleContainer()">Close</button>
   </div>
-  <button aria-hidden="true" class="h-screen w-screen fixed inset-0 bg-black bg-opacity-25 z-0 toggle-side-pane"></button>
+  <button  onclick="toggleContainer()" aria-hidden="true" class="h-screen w-screen fixed inset-0 bg-black bg-opacity-25 z-0"></button>
 </div>
-<script>
-  htmx.onLoad(function (content) {
-    const togglePaneButton = content.querySelectorAll('.toggle-side-pane')
-    const sidePane = content.querySelector('.side-pane')
-    const sidePaneContent = content.querySelector('.side-pane-content')
-    togglePaneButton.forEach((button) => {
-      button.addEventListener('click', () => {
-        sidePane.classList.toggle('-translate-x-full')
-        sidePane.classList.toggle('translate-x-0')
-        sidePaneContent.classList.toggle('-translate-x-full')
-        sidePaneContent.classList.toggle('translate-x-0')
-      })
-    })
-  })
-</script>

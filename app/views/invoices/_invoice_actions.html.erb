@@ -9,11 +9,14 @@
     </div>
   </div>
   <div class="flex items-center space-x-2">
-    <%= link_to 'Edit', edit_invoice_path(@invoice), {
+    <%= link_to 'Edit', edit_invoice_path(@invoice), 
+    
+    {
     'hx-get': edit_invoice_path(@invoice),
     'hx-target': '#form-box',
     'hx-swap': 'innerHTML',
-    class: "toggle-side-pane btn btn-muted"
+    class: "btn btn-muted",
+    onclick: 'toggleContainer()',
   } %>
     <%= link_to 'Delete', @invoice, { 
     method: :delete,
