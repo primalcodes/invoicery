@@ -1,0 +1,26 @@
+<div id='invoice-actions'>
+  <%= link_to "Mark as #{@invoice.paid? ? 'Un' : ''}Paid", toggle_status_invoice_path(@invoice), {
+    method: :patch,
+    'hx-patch': toggle_status_invoice_path(@invoice),
+    'hx-target': '#invoice-actions',
+    'hx-swap': 'outerHTML',
+  } %> |
+  <%= link_to 'Edit', edit_invoice_path(@invoice), {
+    'hx-get': edit_invoice_path(@invoice),
+    'hx-target': '#form-box',
+    'hx-swap': 'innerHTML',
+    class: "toggle-side-pane"
+  } %> |
+  <%= link_to 'Delete', @invoice, { 
+    method: :delete,
+    'hx-confirm': 'Are you sure?',
+    'hx-delete': invoice_path(@invoice),                  
+    'hx-swap': 'outerHTML',
+    'hx-target': "#invoice-#{ @invoice.id }"
+  } %>
+  
+</div>
+
+<% if htmx_request? %>
+  <span id="invoice-status" hx-swap-oob="true"><%= @invoice.status %></span>
+<% end %>
