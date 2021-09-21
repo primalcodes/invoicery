@@ -60,6 +60,20 @@ class InvoicesController < ApplicationController
     end
   end
 
+  # PATCH /invoices/1/paid or /invoices/1/paid.json
+  def paid
+    respond_to do |format|
+      @invoice.status = Invoice.statuses[:paid]
+      if @invoice.save
+        format.html { redirect_to @invoice, notice: 'Invoice was successfully marked as paid.' }
+        format.json { render :show, status: :ok, location: @invoice }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @invoice.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /invoices/1 or /invoices/1.json
   def destroy
     @invoice.destroy

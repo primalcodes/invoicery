@@ -2,68 +2,45 @@
 
   <div class="pt-12 flex items-center justify-between">
     <%= link_to 'Back', invoices_path %>
-    <% unless htmx_request? %>
-  <div>
-    <%# 
-      MIKE TODO: Need a method to set status to "paid" 
-      How to make this shit a button?
-    %>
-    <%= set_invoice_paid -%>
-    
-    <%= link_to 'Edit', edit_invoice_path(@invoice), {
-      'hx-get': edit_invoice_path(@invoice),
-      'hx-target': '#form-box',
-      'hx-swap': 'innerHTML',
-      class: "toggle-side-pane"
-    } %> |
-    <%= link_to 'Delete', @invoice, { 
-      method: :delete,
-      'hx-confirm': 'Are you sure?',
-      'hx-delete': invoice_path(@invoice),                  
-      'hx-swap': 'outerHTML',
-      'hx-target': "#invoice-#{ @invoice.id }"
-    } %>
-    
-  </div>
-  <% end %>
+    <%= render partial: 'invoice_actions' unless htmx_request? %>    
   </div>
   <div class="bg-white p-12 rounded-xl shadow space-y-6">
-  <p id="notice"><%= notice %></p>
+    <p id="notice"><%= notice %></p>
 
-  <p>
-    <strong>Payment date:</strong>
-    <%= @invoice.payment_date %>
-  </p>
+    <p>
+      <strong>Payment date:</strong>
+      <%= @invoice.payment_date %>
+    </p>
 
-  <p>
-    <strong>Description:</strong>
-    <%= @invoice.description %>
-  </p>
+    <p>
+      <strong>Description:</strong>
+      <%= @invoice.description %>
+    </p>
 
-  <p>
-    <strong>Payment term:</strong>
-    <%= @invoice.payment_term.name %>:
-    <i><%= @invoice.payment_term.description %></i>
-  </p>
+    <p>
+      <strong>Payment term:</strong>
+      <%= @invoice.payment_term.name %>:
+      <i><%= @invoice.payment_term.description %></i>
+    </p>
 
-  <%= render partial: 'addresses/address', locals: {address: @invoice.sender_address} %>
+    <%= render partial: 'addresses/address', locals: {address: @invoice.sender_address} %>
 
-  <p>
-    <strong>Client name:</strong>
-    <%= @invoice.client_name %>
-  </p>
+    <p>
+      <strong>Client name:</strong>
+      <%= @invoice.client_name %>
+    </p>
 
-  <p>
-    <strong>Client email:</strong>
-    <%= @invoice.client_email %>
-  </p>
+    <p>
+      <strong>Client email:</strong>
+      <%= @invoice.client_email %>
+    </p>
 
-  <%= render partial: 'addresses/address', locals: {address: @invoice.client_address} %>
+    <%= render partial: 'addresses/address', locals: {address: @invoice.client_address} %>
 
-  <p>
-    <strong>Status:</strong>
-    <%= @invoice.status %>
-  </p>
+    <p>
+      <strong>Status:</strong>
+      <%= @invoice.status %>
+    </p>
   </div>
 </div>
 

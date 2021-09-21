@@ -1,6 +1,7 @@
-Rails.application.routes.draw do    
+Rails.application.routes.draw do
   resources :payment_terms
   resources :invoices do
+    patch '/paid', to: 'invoices#paid', as: 'paid'
     resources :addresses
     resources :line_items
   end
