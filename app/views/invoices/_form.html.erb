@@ -52,7 +52,7 @@
       <h3 class="font-bold">Line Items</h3>
       <%= form.fields_for :line_items do |li| %>
         <%= render partial: 'line_items/form_fields', locals:{ form: li } %> <% end %>
-      <div class="actions"><%= form.submit %></div>
+      <div class="actions"><%= form.submit :class => 'btn btn-default cursor-pointer' %></div>
     </div>
   </div>
 <% end %>
