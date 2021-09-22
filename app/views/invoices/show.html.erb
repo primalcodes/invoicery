@@ -1,16 +1,17 @@
-<div class="space-y-6 mx-auto w-full max-w-3xl">
-  <div class="pt-12"><%= link_to 'Back', invoices_path %></div>
+<div class="space-y-6 mx-auto w-full max-w-3xl px-4 lg:px-0">
+  <div class="pt-12">
+    <%= link_to invoices_path, :class => 'flex items-center text-purple-900 font-bold space-x-1' do %>
+      <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"><path data-v-2df2befb="" fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+      <span>Back</span>
+    <% end %>
+  </div>
   <%= render partial: 'invoices/invoice_actions' unless htmx_request? %>
   <div class="p-6 space-y-12 overflow-hidden bg-white rounded-lg shadow lg:p-12 ">
     <div class="space-y-6 bg-white lg:space-x-10 lg:flex lg:justify-between lg:space-y-0">
       <div class="space-y-1">
-        <h1><span class="text-gray-600">#</span><span class="font-bold"><%= @invoice.id %></span></h1>
+        <h1><span class="text-gray-600 font-medium text-sm">INVOICE #: </span><span class="font-bold"><%= @invoice.id %></span></h1>
         <p class="text-sm leading-normal text-gray-600">
           <%= @invoice.description %>
-        </p>
-        <p class="text-sm leading-normal text-gray-600">
-          <%= @invoice.payment_term.name %>:
-          <i><%= @invoice.payment_term.description %></i>
         </p>
       </div>
       <div class="text-sm lg:text-right text-gray-600 lg:flex-shrink-0">
@@ -21,7 +22,7 @@
       <div class="flex flex-col self-stretch col-span-2 space-y-6">
         <div>
           <h2 class="mb-2 text-sm text-gray-600">Invoice Date</h2>
-          <p class="font-bold">
+          <p class="font-bold text-purple-900">
             6 Sep 2021<br>
             <span class="text-red-500">NEEDS UPDATE</span>
           </p>
@@ -30,8 +31,8 @@
           <h2 class="mb-2 text-sm text-gray-600">
             Payment Due
           </h2>
-          <p class="font-bold">
-            <%= @invoice.payment_date %>
+          <p class="font-bold text-purple-900">
+            <%= @invoice.payment_date.strftime("%b %d, %Y") %>
           </p>
         </div>
       </div>
@@ -39,17 +40,17 @@
         <h2 class="mt-auto mb-2 text-sm text-gray-600">
           Bill To
         </h2>
-        <p class="font-bold"><%= @invoice.client_name %></p>
+        <p class="font-bold text-purple-900"><%= @invoice.client_name %></p>
         <%= render partial: 'addresses/address', locals: {address: @invoice.client_address} %>
       </div>
       <div class="col-span-4 lg:col-span-3">
         <h2 class="mt-auto mb-2 text-sm text-gray-600">
           Sent To
         </h2>
-        <p class="font-bold truncate"><%= @invoice.client_email %></p>
+        <p class="font-bold truncate text-purple-900"><%= @invoice.client_email %></p>
       </div>
     </div>
-    <div class="overflow-hidden rounded-lg bg-gray-100">
+    <div class="overflow-hidden rounded-lg bg-purple-100">
       <div class="p-8">
         <ul class="hidden lg:block lg:mb-8 ">
           <li class="text-xs lg:grid lg:gap-6 lg:grid-cols-9 text-mj-purple-gray-3">
@@ -83,12 +84,16 @@
           </li>
         </ul>
       </div>
-      <div class="flex items-center justify-between p-4 text-white bg-gray-800 lg:p-6">
+      <div class="flex items-center justify-between p-4 text-white bg-purple-900 lg:p-6">
         <p class="text-sm">Amount Due</p>
         <p class="text-3xl font-bold">$300.00</p>
       </div>
     </div>
+    <p class="text-sm leading-normal text-gray-700">
+      <%= @invoice.payment_term.description %>
+    </p>
   </div>
+  <%= render partial: 'invoices/invoice_actions_footer' unless htmx_request? %>
 </div>
 <div class="side-pane fixed flex inset-0 transition-colors transform -translate-x-full w-screen">
   <div class="side-pane-content bg-white h-full w-full max-w-5xl shadow-lg space-y-12 p-12 lg:p-24 shadow-lg transform -translate-x-full duration-300 overflow-y-scroll lg:rounded-tr-3xl lg:rounded-br-3xl z-10">
