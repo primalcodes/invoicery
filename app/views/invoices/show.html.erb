@@ -23,7 +23,7 @@
         <div>
           <h2 class="mb-2 text-sm text-gray-600">Invoice Date</h2>
           <p class="font-bold text-purple-900">
-            6 Sep 2021<br>
+            <%= @invoice.created_at.strftime('%b %d, %Y') %><br><br>
             <span class="text-red-500">NEEDS UPDATE</span>
           </p>
         </div>
@@ -63,30 +63,12 @@
           </li>
         </ul>
         <ul class="space-y-6">
-          <li class="grid items-center grid-cols-2 gap-6 text-sm font-bold lg:grid-cols-9">
-            <div class="lg:col-span-4">
-              <p class="capitalize">etc. etc.</p>
-              <p class="lg:hidden text-mj-purple-gray-3">
-                3 x $100
-              </p>
-            </div>
-            <div class="hidden text-center lg:block lg:col-span-1 text-mj-purple-gray-3">
-              <p class="text-center">
-                3
-              </p>
-            </div>
-            <div class="hidden text-right lg:col-span-2 lg:block text-mj-purple-gray-3">
-              <p>$300.00</p>
-            </div>
-            <div class="text-right lg:col-span-2">
-              <p>$300.00</p>
-            </div>
-          </li>
+          <%= render partial: 'invoices/line_item', collection: @invoice.line_items %>
         </ul>
       </div>
       <div class="flex items-center justify-between p-4 text-white bg-purple-900 lg:p-6">
         <p class="text-sm">Amount Due</p>
-        <p class="text-3xl font-bold">$300.00</p>
+        <p class="text-3xl font-bold"><%= number_to_currency(@invoice.total) %></p>
       </div>
     </div>
     <p class="text-sm leading-normal text-gray-700">
