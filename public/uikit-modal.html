@@ -1,0 +1,82 @@
+<div
+  id="modal"
+  class="
+    absolute
+    z-10
+    w-48
+    p-6
+    space-y-2
+    text-xs
+    font-bold
+    transform
+    -translate-x-1/2
+    bg-white
+    rounded-lg
+    shadow-lg
+    top-0
+    mt-10
+    left-half
+  "
+  style="display: block"
+>
+  <div class="uk-modal-dialog uk-modal-body">
+    <form _="on submit take .uk-open from #modal">
+      <div class="flex items-center space-x-2 text-left">
+        <input
+          type="checkbox"
+          value="draft"
+          id="draft"
+          class="rounded text-mj-purple-1"
+        />
+        <label for="draft" class="mt-3">Draft</label>
+      </div>
+      <div class="flex items-center space-x-2 text-left">
+        <input
+          type="checkbox"
+          value="pending"
+          id="pending"
+          class="rounded text-mj-purple-1"
+        />
+        <label for="pending" class="mt-3">Pending</label>
+      </div>
+      <div class="flex items-center space-x-2 text-left">
+        <input
+          type="checkbox"
+          value="paid"
+          id="paid"
+          class="rounded text-mj-purple-1"
+        />
+        <label for="paid" class="mt-3">Paid</label>
+      </div>
+      <button
+        id="cancelButton"
+        type="button"
+        class="uk-button uk-button-default mt-4"
+        _="on click take .uk-open from #modal wait 200ms then remove #modal"
+      >
+        Close
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // This triggers the fade-in animation when a modal dialog is loaded and displayed
+  window.document
+    .getElementById('showButton')
+    .addEventListener('htmx:afterOnLoad', function () {
+      setTimeout(function () {
+        window.document.getElementById('modal').classList.add('uk-open')
+      }, 10)
+    })
+
+  // This triggers the fade-out animation when the modal is closed.
+  window.document
+    .getElementById('cancelButton')
+    .addEventListener('click', function () {
+      window.document.getElementById('modal').classList.remove('uk-open')
+      setTimeout(function () {
+        ;(window.document.getElementById('modals-here').innerHTML = ''), 200
+      })
+    })
+</script>

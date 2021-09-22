@@ -1,4 +1,4 @@
-<div id='invoice-actions' class="flex items-center justify-between bg-white p-6 lg:p-12 rounded-lg shadow-sm">
+<div class="flex items-center justify-between bg-white p-6 lg:p-12 rounded-lg shadow-sm invoice-actions">
   <div class="flex items-center flex-grow justify-between lg:justify-start">
     <p class="mr-2 text-purple-900">
       <strong>Status:</strong>
@@ -29,7 +29,7 @@
     <%= link_to "Mark as #{@invoice.paid? ? 'Un' : ''}Paid", toggle_status_invoice_path(@invoice), {
     method: :patch,
     'hx-patch': toggle_status_invoice_path(@invoice),
-    'hx-target': '#invoice-actions',
+    'hx-target': '.invoice-actions',
     'hx-swap': 'outerHTML',
     class: "btn btn-default"
   } %>

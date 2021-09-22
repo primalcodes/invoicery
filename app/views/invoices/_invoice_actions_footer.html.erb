@@ -1,4 +1,4 @@
-<div id='invoice-actions' class="flex lg:hidden items-center justify-between bg-white p-6 rounded-lg shadow-sm">
+<div class="flex lg:hidden items-center justify-between bg-white p-6 rounded-lg shadow-sm invoice-actions">
   <%= link_to 'Edit', edit_invoice_path(@invoice), 
     
     {
@@ -19,7 +19,7 @@
   <%= link_to "Mark as #{@invoice.paid? ? 'Un' : ''}Paid", toggle_status_invoice_path(@invoice), {
     method: :patch,
     'hx-patch': toggle_status_invoice_path(@invoice),
-    'hx-target': '#invoice-actions',
+    'hx-target': '.invoice-actions',
     'hx-swap': 'outerHTML',
     class: "btn btn-default"
   } %>
