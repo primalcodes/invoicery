@@ -3,7 +3,9 @@ class InvoicesController < ApplicationController
 
   # GET /invoices or /invoices.json
   def index
-    @invoices = Invoice.includes(:payment_term).all
+    @invoices = Invoice.includes(:payment_term)
+                       .all
+                       .order(status: params[:sort] || 'asc')
   end
 
   # GET /invoices/1 or /invoices/1.json
