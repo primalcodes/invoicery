@@ -1,11 +1,11 @@
 <div class="line-item-fields grid grid-cols-4 lg:grid-cols-8 gap-6">
   <div class="field col-span-4">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, required: true %>
   </div>
   <div class="field">
     <%= form.label :quantity %>
-    <%= form.number_field :quantity %>
+    <%= form.number_field :quantity, min: "1" %>
   </div>
   <div class="field hidden lg:block">
     <%= form.label :price %>
