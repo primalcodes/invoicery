@@ -53,14 +53,38 @@
     <div id="invoice-lineitems" class="space-y-6">
       <h3 class="font-bold text-lg">Line Items</h3>
       <%= form.fields_for :line_items do |li| %>
-        <%= render partial: 'line_items/form_fields', locals:{ form: li } %> <% end %>
-        <%#= link_to 'Add Line Item', new_invoice_line_item_path(invoice),
-          {
-            'hx-get': new_invoice_line_item_path(invoice),
-            'hx-beforeend': '#invoice-lineitems'
-          }
-        %>
-      <div class="actions"><%= form.submit :class => 'btn btn-default cursor-pointer' %></div>
+        <%= render partial: 'line_items/form_fields', locals:{ form: li } %> <% end %>        
+      <div class="actions">
+        <a href="#" onClick="cloneLineItem();" class="btn btn-success cursor-pointer">Add Line Item</a>
+        <%= form.submit :class => 'btn btn-default cursor-pointer' %>
+      </div>
     </div>
   </div>
 <% end %>
+<script>
+  function cloneLineItem(){    
+    let lineItemsContainer = document.querySelector('#invoice-lineitems');
+    let lineItems = lineItemsContainer.querySelectorAll('.line-item-fields');
+    let nextItemIndex = lineItems.length;
+    let lastLineItem = lineItems[lineItems.length - 1];
+    let newLineItem = lastLineItem.cloneNode(true);
+
+    newLineItem.querySelectorAll('input').forEach(inputEl => {
+      let id = inputEl.getAttribute('id');
+      let newId = id.replace((nextItemIndex -1), nextItemIndex);
+      inputEl.setAttribute('id', newId);
+
+      let name = inputEl.getAttribute('name');
+      let newName = name.replace((nextItemIndex -1), nextItemIndex);
+      inputEl.setAttribute('name', newName);
+      if(inputEl.getAttribute('type') == 'number') {
+        inputEl.value = 0;
+      } else {
+        inputEl.value = '';
+      }
+        
+    });
+
+    lineItemsContainer.insertBefore(newLineItem, lineItemsContainer.querySelector('.actions'));
+  }
+</script>
