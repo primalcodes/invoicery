@@ -25,6 +25,12 @@ textarea {
   font-weight: 500;
 }
 
+input[type].appearance-none {
+  border: none;
+  padding: 0 0 0 0 !important;
+  height: initial;
+}
+
 select {
   background-position: right 0.5rem center;
   background-repeat: no-repeat;
